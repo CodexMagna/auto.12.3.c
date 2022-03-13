@@ -12,6 +12,20 @@ function menorMayor(numeros) {
   // y 15 es el número más grande (mayor) dentro del arreglo [4, 6, 1, 7, 15]
 
   // Tu código aca:
+  var biggest = 0;
+  var smallest = 9000;
+  var array = [];
+ for(var i = 0; i < numeros.length; i++) {
+     if (numeros[i] < smallest) {
+       smallest = numeros[i];
+     }
+     if (numeros[i] > biggest) {
+       biggest = numeros[i];
+     }
+
+}
+array.push(smallest, biggest);
+return array;
 
 }
 
@@ -23,6 +37,16 @@ function stringMasLarga(strings) {
   // stringMasLarga(['JavaScript', 'HTML', 'CSS']); debe retornar 'JavaScript'
 
   // Tu código aca
+
+  var largerString = "";
+ for(var i = 0; i < strings.length; i++) {
+
+    if (strings[i].length > largerString.length) {
+      largerString = strings[i];
+    }
+  }
+    return largerString;
+
 }
 
 function buscarAmigo(amigos, nombre) {
@@ -35,8 +59,27 @@ function buscarAmigo(amigos, nombre) {
   //  buscarAmigo(amigos, 'toni') debe devolver { nombre: 'toni', edad: 33 };
 
   // Tu código aca:
-  
+  var object1 = {
+    nombre: amigos[0].nombre,
+    edad: amigos[0].edad,
+  };
+  var object2 = {
+    nombre: amigos[1].nombre,
+    edad: amigos[1].edad,
+  };
+
+  var arranger = function finder() {
+    if (object1.nombre == nombre) {
+  return object1;
 }
+  if (object2.nombre == nombre) {
+  return object2;
+}
+
+}
+return arranger();
+}
+
 
 function sumArray(array, n) {
   // La función llamada 'sumArray' recibe como argumento un arreglo de números ordenados llamado 'array' y un número
@@ -53,9 +96,22 @@ function sumArray(array, n) {
   // por lo tanto también debería devolver false en este caso
 
   // Tu código aca:
+  var counter = 0;
+  var greatest = 0;
+for(var i = 1; i < array.length; i++) {
+  counter =  array[0];
+  greatest = counter + array[i];
+
+  if (greatest  === n) {
+  return true;
+
+}
 
 
-};
+}
+
+return false;
+}
 
 function pluck(array, propiedad) {
   // La función llamada 'pluck' recibe como argumento un array de objetos llamado 'array' y el nombre de una
@@ -67,7 +123,15 @@ function pluck(array, propiedad) {
   // Pista: es una buena oportunidad para usar map.
 
   // Tu código acá:
+  var productName = array.map(product => product.name);
+  var productPrice = array.map(product => product.price);
 
+  if (propiedad === "name") {
+    return productName;
+  }
+ else if (propiedad === "price") {
+   return productPrice;
+ }
 }
 
 // =======================================================================
@@ -80,8 +144,21 @@ function crearClasePersona() {
       // Inicializar las propiedades de la persona con los valores recibidos como argumento
 
       // Tu código aca:
+      this.nombre = nombre,
+         this.edad = edad,
+         this.hobbies = hobbies,
+         this.amigos = amigos,
+         this.persona = function(){
+           return{
+             nombre: this.nombre,
+             edad: this.edad,
+             hobbies: this.hobbies,
+             amigos: this.amigos,
+           }
+         }
+       }
 
-    }
+
 
     addFriend(nombre, edad) {
       // El método 'addFriend' recibe un string 'nombre' y un entero 'edad' y debe agregar un objeto:
@@ -90,14 +167,17 @@ function crearClasePersona() {
 
       // Tu código aca:
 
-    }
+      var agregado = {nombre, edad}
+      this.amigos.push(agregado);
+
+  }
 
     addHobby(hobby) {
       // El método 'addHobby' recibe un string 'hobby' y debe agregarlo al arreglo de hobbies de la persona.
       // No debe retornar nada.
 
       // Tu código aca:
-
+      this.hobbies.push(hobby);
     }
     getFriends() {
       // El método 'getFriends' debe retornar un arreglo con sólo los nombres del arreglo de amigos
@@ -108,7 +188,11 @@ function crearClasePersona() {
 
       // Tu código aca:
 
-    }
+      var mapper = ((amigo) => amigo.nombre);
+    var stored = this.amigos.map(mapper);
+    return stored;
+      }
+
 
     getHobbies() {
       // El método 'getHobbies' debe retornar un arreglo con los hobbies de la persona
@@ -116,6 +200,7 @@ function crearClasePersona() {
       // persona.getHobbies() debe devolver ['correr', 'dormir', 'nadar']
 
       // Tu código aca:
+      return this.hobbies;
 
     }
 
@@ -135,7 +220,7 @@ function crearClasePersona() {
       // persona.getPromedioEdad() debería devolver 29 ya que (33 + 25) / 2 = 29
 
       // Tu código aca:
-
+return this.amigos.map(amigo => amigo.edad).reduce((a, b) => a + b) / this.amigos.length
     }
   };
 
@@ -168,6 +253,19 @@ function filtrar(funcion) {
   //   return p.price >= 50;
   // }) => [{price: 100, name:'tv'}]
 
+
+
+    Array.prototype.filtrar = function (cb) {
+      var theArray = [];
+
+    for (let i = 0; i < this.length; i++) {
+      var arranger = cb(this[i]);
+
+      if(arranger)theArray.push(this[i]);
+    }
+
+    return theArray;
+  };
 };
 
 // No modifiques nada debajo de esta linea
